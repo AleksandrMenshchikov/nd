@@ -2,36 +2,34 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  Index,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { IsEmail, IsString, MaxLength, MinLength } from 'class-validator';
+import { IsString, MaxLength, MinLength } from 'class-validator';
 import { Transform } from 'class-transformer';
 import { Evaluation } from '../../evaluations/entities/evaluation.entity';
 
-@Entity('users')
-export class User {
+@Entity('lessons')
+export class Lesson {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 100 })
+  @Column({ length: 100, unique: true })
   @IsString()
   @MinLength(1)
   @MaxLength(100)
   @Transform((val) => val.value.trim())
   name: string;
 
-  @Column({ unique: true, length: 30 })
-  @Index()
-  @IsEmail()
+  @Column({ length: 20, unique: true })
   @IsString()
-  @MaxLength(30)
+  @MinLength(1)
+  @MaxLength(20)
   @Transform((val) => val.value.trim())
-  email: string;
+  code: string;
 
-  @OneToMany(() => Evaluation, (evaluation) => evaluation.user)
+  @OneToMany(() => Evaluation, (evaluation) => evaluation.lesson)
   evaluations: Evaluation[];
 
   @CreateDateColumn()

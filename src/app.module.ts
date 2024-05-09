@@ -7,6 +7,8 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { UsersModule } from './users/users.module';
 import { PassportModule } from '@nestjs/passport';
+import { LessonsModule } from './lessons/lessons.module';
+import { EvaluationsModule } from './evaluations/evaluations.module';
 
 @Module({
   imports: [
@@ -31,6 +33,8 @@ import { PassportModule } from '@nestjs/passport';
     }),
     UsersModule,
     PassportModule,
+    LessonsModule,
+    EvaluationsModule,
   ],
   controllers: [],
   providers: [

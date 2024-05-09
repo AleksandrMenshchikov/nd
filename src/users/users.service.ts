@@ -12,7 +12,9 @@ export class UsersService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async createUser(createUserDto: CreateUserDto) {
+  async createUser(
+    createUserDto: CreateUserDto,
+  ): Promise<{ access_token: string }> {
     const data = await this.userRepository.save(createUserDto);
 
     return {
