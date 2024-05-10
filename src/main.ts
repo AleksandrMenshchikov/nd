@@ -4,6 +4,8 @@ import helmet from 'helmet';
 import { ValidationPipe } from '@nestjs/common';
 import { GlobalExceptionFilter } from './shared/global-exception.filter';
 import { corsOptions } from './shared/cors';
+import { SwaggerModule } from '@nestjs/swagger';
+import { configSwagger } from './shared/swagger';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
@@ -17,6 +19,9 @@ async function bootstrap(): Promise<void> {
   app.use(helmet());
 
   app.enableCors(corsOptions);
+
+  const document = SwaggerModule.createDocument(app, configSwagger);
+  SwaggerModule.setup('api', app, document);
 
   await app.listen(8080);
 }
